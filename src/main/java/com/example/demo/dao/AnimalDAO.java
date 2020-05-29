@@ -10,7 +10,7 @@ import com.example.demo.model.Animal;
 @Repository
 public interface AnimalDAO extends JpaRepository<Animal, Integer> {
 	
-	public Optional<Animal> findByAnimalNumber(String animalNumber);
+	public Animal findByAnimalNumber(String animalNumber);
 
 }
 
