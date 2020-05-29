@@ -1,5 +1,6 @@
 package com.example.demo.bean;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,8 @@ public class AnimalTO {
 	private String sex;
 	private String colour;
 	private String breed;
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
+	private Integer animalGroupId;
 	private String animalGroupNumber;
 	
 	public Integer getId() {
@@ -49,10 +51,10 @@ public class AnimalTO {
 	public void setBreed(String breed) {
 		this.breed = breed;
 	}
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	public String getAnimalGroupNumber() {
@@ -60,6 +62,13 @@ public class AnimalTO {
 	}
 	public void setAnimalGroupNumber(String animalGroupNumber) {
 		this.animalGroupNumber = animalGroupNumber;
+	}
+	
+	public Integer getAnimalGroupId() {
+		return animalGroupId;
+	}
+	public void setAnimalGroupId(Integer animalGroupId) {
+		this.animalGroupId = animalGroupId;
 	}
 	
 	public static AnimalTO map(Animal animal) {
@@ -70,6 +79,7 @@ public class AnimalTO {
 		animalTO.setColour(animal.getColour());
 		animalTO.setDateOfBirth(animal.getDateOfBirth());
 		animalTO.setSex(animal.getSex());
+		animalTO.setAnimalGroupId(animal.getFk_AnimalGroup());
 		animalTO.setAnimalGroupNumber(animal.getFk_AnimalGroup().toString());
 		return animalTO;
 	}
