@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,10 @@ public class AnimalBM {
 	
 	public Animal getAnimalByAnimalNumber(String animalNumber) {
 		return animalDao.findByAnimalNumber(animalNumber);		 
+	}
+	
+	public List<Animal> getByAnimalGroupId(Integer animalGroupId) {
+		return animalDao.findByfk__AnimalGroup(animalGroupId);
 	}
 	
 

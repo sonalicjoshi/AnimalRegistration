@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -62,11 +63,11 @@ public class Animal {
 		this.breed = breed;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -91,7 +92,7 @@ public class Animal {
 	private String breed;
 	
 	@Column(name="dateOfBirth")
-	private Date dateOfBirth;
+	private LocalDate dateOfBirth;
 	
 	@Column(name="fk_AnimalGroup")
 	private Integer fk_AnimalGroup;
