@@ -70,11 +70,11 @@ public class Animal {
 		this.dateOfBirth = dateOfBirth;
 	}
 
-	public AnimalGroup getFk_AnimalGroup() {
+	public Integer getFk_AnimalGroup() {
 		return fk_AnimalGroup;
 	}
 
-	public void setFk_AnimalGroup(AnimalGroup fk_AnimalGroup) {
+	public void setFk_AnimalGroup(Integer fk_AnimalGroup) {
 		this.fk_AnimalGroup = fk_AnimalGroup;
 	}
 
@@ -93,9 +93,8 @@ public class Animal {
 	@Column(name="dateOfBirth")
 	private Date dateOfBirth;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="fk_AnimalGroup")
-	private AnimalGroup fk_AnimalGroup;
+	@Column(name="fk_AnimalGroup")
+	private Integer fk_AnimalGroup;
 	
 	public Animal() {
 	}

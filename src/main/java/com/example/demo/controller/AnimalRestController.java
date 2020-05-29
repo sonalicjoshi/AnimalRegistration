@@ -11,6 +11,7 @@ import com.example.demo.bean.AnimalTO;
 import com.example.demo.service.AnimalBM;
 
 @RestController
+@RequestMapping(value="/animal")
 public class AnimalRestController {
 	@Autowired
 	AnimalBM animalBM;
@@ -23,9 +24,9 @@ public class AnimalRestController {
 		animalBM.registerAnimal(animalTO);
 	}
 	
-	@RequestMapping(value="/animal/{animal-id}")
+	@RequestMapping(value="/get-animal-details/{animal-id}")
 	public AnimalTO getAnimal(@PathVariable("animal-id") Integer animalId){
-		return AnimalTO.map(animalBM.getAnimal(animalId).orElseThrow(()-> new IllegalArgumentException("Animal id not found")));
+		return animalBM.getAnimal(animalId);
 	}
 
 }

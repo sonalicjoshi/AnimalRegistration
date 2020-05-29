@@ -17,7 +17,7 @@ public class AnimalTO {
 	private String colour;
 	private String breed;
 	private Date dateOfBirth;
-	private AnimalGroup animalGroup;
+	private String animalGroupNumber;
 	
 	public Integer getId() {
 		return id;
@@ -55,11 +55,11 @@ public class AnimalTO {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
-	public AnimalGroup getAnimalGroup() {
-		return animalGroup;
+	public String getAnimalGroupNumber() {
+		return animalGroupNumber;
 	}
-	public void setAnimalGroup(AnimalGroup animalGroup) {
-		this.animalGroup = animalGroup;
+	public void setAnimalGroupNumber(String animalGroupNumber) {
+		this.animalGroupNumber = animalGroupNumber;
 	}
 	
 	public static AnimalTO map(Animal animal) {
@@ -69,8 +69,8 @@ public class AnimalTO {
 		animalTO.setBreed(animal.getBreed());
 		animalTO.setColour(animal.getColour());
 		animalTO.setDateOfBirth(animal.getDateOfBirth());
-		animalTO.setAnimalGroup(animal.getFk_AnimalGroup());
 		animalTO.setSex(animal.getSex());
+		animalTO.setAnimalGroupNumber(animal.getFk_AnimalGroup().toString());
 		return animalTO;
 	}
 }
