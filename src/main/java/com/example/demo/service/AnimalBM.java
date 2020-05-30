@@ -18,9 +18,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.example.demo.bean.AnimalGroupTO;
 import com.example.demo.bean.AnimalTO;
 import com.example.demo.dao.AnimalDAO;
-import com.example.demo.dao.AnimalGroupDAO;
 import com.example.demo.model.Animal;
-import com.example.demo.model.AnimalGroup;
+
 
 @Service
 public class AnimalBM {
@@ -37,7 +36,8 @@ public class AnimalBM {
 	
 	@Transactional
 	public void registerAnimal(AnimalTO animalTO) {
-		if(getAnimalByAnimalNumber(animalTO.getAnimalNumber())!=null) {
+		Optional<Animal> existingAnimal = animalDao.findByAnimalNumber(animalTO.getAnimalNumber());
+		if(existingAnimal.isPresent()) {
 			 throw new IllegalArgumentException("Animal already present");
 		} else {
 			animal.setAnimalNumber(animalTO.getAnimalNumber());
@@ -65,24 +65,46 @@ public class AnimalBM {
 		ResponseEntity<AnimalGroupTO> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AnimalGroupTO.class);
 		return responseEntity.getBody().getId();		
 	}
+	
+	/**
+	 * gets animal group Number for given animal group Id
+	 * @param animalGroupId
+	 */
+	private String getAnimalGroupNumber(Integer animalGroupId) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Accept", "application/json");
+		String uri = "http://animal-group-registration/get-animal-group-by-id/" + animalGroupId;
+		UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri).build();
+		HttpEntity<String> requestEntity = new HttpEntity<String>(null, headers);
+		ResponseEntity<AnimalGroupTO> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AnimalGroupTO.class);
+		return responseEntity.getBody().getAnimalGroupNumber();		
+	}
 
 	public AnimalTO getAnimal(Integer animalId) {
 		Optional<Animal> animal = animalDao.findById(animalId);
 		if(animal.isPresent()) {
 			AnimalTO animalTO =  AnimalTO.map(animal.get());
+			animalTO.setAnimalGroupNumber(getAnimalGroupNumber(animalTO.getAnimalGroupId()));
 			return animalTO;
 		} else {
 			 throw new IllegalArgumentException("Animal id not found");
 		}
 	}
 	
-	public Animal getAnimalByAnimalNumber(String animalNumber) {
-		return animalDao.findByAnimalNumber(animalNumber);		 
-	}
-	
 	public List<Animal> getByAnimalGroupId(Integer animalGroupId) {
 		return animalDao.findByfk__AnimalGroup(animalGroupId);
 	}
-	
 
+
+	public AnimalTO getAnimalByAnimalNumber(String animalNumber) {
+		Optional<Animal> animal = animalDao.findByAnimalNumber(animalNumber);
+		if(animal.isPresent()) {
+			AnimalTO animalTO =  AnimalTO.map(animal.get());
+			animalTO.setAnimalGroupNumber(getAnimalGroupNumber(animalTO.getAnimalGroupId()));
+			return animalTO;
+		} else {
+			 throw new IllegalArgumentException("Animal Number not found");
+		}
+	}
+	
 }

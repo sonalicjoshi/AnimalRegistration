@@ -13,7 +13,7 @@ import com.example.demo.model.Animal;
 @Repository
 public interface AnimalDAO extends JpaRepository<Animal, Integer> {
 	
-	public Animal findByAnimalNumber(String animalNumber);
+	public Optional<Animal> findByAnimalNumber(String animalNumber);
 	
 	@Query("SELECT a FROM Animal a WHERE a.fk_AnimalGroup = :animalGroupId")
 	List<Animal> findByfk__AnimalGroup(@Param("animalGroupId")Integer fk_AnimalGroup);

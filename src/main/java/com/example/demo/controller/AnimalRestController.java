@@ -27,9 +27,14 @@ public class AnimalRestController {
 		animalBM.registerAnimal(animalTO);
 	}
 	
-	@RequestMapping(value="/get-animal-details/{animal-id}")
+	@RequestMapping(value="/byAnimalId/{animal-id}")
 	public AnimalTO getAnimal(@PathVariable("animal-id") Integer animalId){
 		return animalBM.getAnimal(animalId);
+	}
+	
+	@RequestMapping(value="/get-animal-details/{animal-number}")
+	public AnimalTO getAnimal(@PathVariable("animal-number") String animalNumber){
+		return animalBM.getAnimalByAnimalNumber(animalNumber);
 	}
 	
 	@RequestMapping(value="/byAnimalGroupId/{animal-group-id}")
