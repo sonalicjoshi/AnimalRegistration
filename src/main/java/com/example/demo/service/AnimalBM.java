@@ -59,7 +59,7 @@ public class AnimalBM {
 	private Integer getAnimalGroupId(String animalGroupNumber) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", "application/json");
-		String uri = "http://animal-group-registration/get-animal-group-details/" + animalGroupNumber;
+		String uri = "http://animal-group-registration/animalGroup/" + animalGroupNumber;
 		UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri).build();
 		HttpEntity<String> requestEntity = new HttpEntity<String>(null, headers);
 		ResponseEntity<AnimalGroupTO> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AnimalGroupTO.class);
@@ -73,7 +73,7 @@ public class AnimalBM {
 	private String getAnimalGroupNumber(Integer animalGroupId) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", "application/json");
-		String uri = "http://animal-group-registration/get-animal-group-by-id/" + animalGroupId;
+		String uri = "http://animal-group-registration/animalGroup/get-animal-group-by-id/" + animalGroupId;
 		UriComponents builder = UriComponentsBuilder.fromHttpUrl(uri).build();
 		HttpEntity<String> requestEntity = new HttpEntity<String>(null, headers);
 		ResponseEntity<AnimalGroupTO> responseEntity = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, requestEntity, AnimalGroupTO.class);
